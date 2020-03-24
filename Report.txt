@@ -1,0 +1,1675 @@
+MINI PROJECT REPORT
+ON
+
+
+“Online Ticket Concession for College Students”
+
+
+    Submitted by
+
+1. Gayatri Asodekar(5)
+2. Vijay Chaudhari(15)
+
+
+
+
+
+
+
+ Under the guidance of 
+
+
+ Prof.  Deepali Chavhan
+
+
+
+DATTA MEGHE COLLEGE OF ENGINEERING, AIROLI.
+MUMBAI UNIVERSITY
+
+ Year 2017-2018
+
+
+
+
+
+                   					               
+                                                         Date: -------------------
+ CERTIFICATE
+
+ 
+     This is to certify that the project report entitled Online Ticket Concession for College Students being submitted by Gayatri Asodekar and Vijay Chaudhari	 in partial fulfillment for the award of the Degree of Bachelor of Technology in Computer engineering to the Mumbai University is a record of bonafied work carried out by him under my guidance and supervision.
+	The results embodied in this project report have not been submitted to any other University or Institute for the award of any Degree or Diploma.
+
+
+
+
+
+
+
+
+
+ Guide		      	 		              HoD. Computer Engineering Department                        Prof. Deepali Chavhan                      	                               Prof  A.P.Pande
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACKNOWLEDGEMENT
+
+
+	Those who walk the difficult path to success never rest at this destiny they walk ahead towards greater success. I consider myself lucky to work under guidance of such talented and experienced people during the preparation my mini project who guided me all through it.
+
+	I am indebted to HOD Prof. A.P.Pande for his support at various stages during the formation of this piece of work.
+
+A special mention must go to my guide Prof. Deepali Chavhan who supported me with her vast knowledge, experience and suggestion. Only their inspiration has made this mini project easy and interesting.
+
+	I would also like to thank our principle Dr. Dr. S.D.Sawarkar for his warm support and providing all necessary facilities to us, the student.
+
+	Last but not the least I am thankful to all the Teachers and Staff members of Computer Engineering Department for their expert guidance and continuous encouragement throughout to see that the maximum benefit is taken out of his experience.
+
+
+
+
+
+  Gayatri Asodekar
+Vijay Chaudhary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ INDEX
+
+      Topics							                 Page No
+      
+1. Abstract 									5
+2. Software Requirement							6
+3. Page layout								7
+4. Source Code								10		
+a. Profile.php								10			
+b. Insert.php								11
+c. Connection.php							12
+d. New.html								13
+e. Home1.html							15
+f. Sam.php								16
+g. 1111.php								16
+h. Verification.php							19
+i. Index.php								21
+j. Log.php								24
+k. Login.php								25
+l. Test.php								25
+m. About.html								26
+5. Screen Shots								39
+6. Conculsion									40
+7. Future Work								40
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ABSTRACT
+
+
+The purpose of this document is to give a detailed description of the requirements for the “Online Ticket Concession” for college students of DMCE. It will illustrate the purpose and complete declaration for the development of system. It will also explain system constraints, interface and interactions with other external applications. 
+
+The “Online Ticket Concession” is a college website in which students can apply for ticket concession form .Due to this website the students can get concession form easily and in less span of time.
+
+As in college,the process of getting ticket concession form is manually and time consuming. As it takes at least two days to get the form after submitting their documents. So for ease of students a website is been developed which provide them concession form online.
+
+By creating this website, every student will be given a password and a login id by office member on confirming the admission. By using that password and id student should create their profile which will be valid for a year.
+
+After creating their profile the can access the ticket concession form.
+In that form the students only have to write their previous concession number if there. And other information will be automatically added. This will also not create any duplication of form. And at the end of the form the digital sign will be added. And after which they can take printout of the form and can submit to railway ticket counter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ SOFTWARE REQUIREMENT
+
+ Front End:-
+1. HTML
+2. CSS
+
+      Back End:-
+1. MYSQL
+2. PHP
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PAGE LAYOUT
+FRONT PAGE OF SITE
+
+
+
+
+
+LOGIN PAGE
+
+
+
+ABOUT US PAGE  
+
+
+
+
+
+
+
+
+
+SOURCE CODE
+Profile .php
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		profile
+	
+	</title>
+	<style>
+	
+	.box {
+    width:300px;
+    height:300px;
+    background-color:#d9d9d9;
+    position:fixed;
+    margin-left:-150px; /* half of width */
+    margin-top:-150px;  /* half of height */
+    top:50%;
+    left:50%;
+}
+	</style>
+</head>
+<body style="background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%)">
+
+<?php
+include('connection.php');
+include('login.php');
+
+$id=$_SESSION['id'];
+echo $id;
+
+$result3 = mysqli_query($conn,"SELECT * FROM profile where grno='$id'");
+while($row = mysqli_fetch_array($result3))
+{ 
+$fname=$row['fname'];
+$lname=$row['lname'];
+$address=$row['address'];
+$contact=$row['contact'];
+$dateofbirth=$row['dob'];
+$cate=$row['category'];
+$gender=$row['gender'];
+$department=$row['department'];
+$year=$row['year'];
+}
+?>
+<table  class="box" width="398" border="0" align="center" cellpadding="0">
+  <tr>
+    <td height="26" colspan="2">Your Profile Information </td>
+	<td><div align="right"><a href="index.php">logout</a></div></td>
+  </tr>
+  <tr>
+    <td width="129" rowspan="9"></td>
+    <td width="82" valign="top"><div align="left"><b>FirstName:</b></div></td>
+    <td width="165" valign="top"><?php echo $fname ?></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="left">LastName:</div></td>
+    <td valign="top"><?php echo $lname ?></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="left">Gender:</div></td>
+    <td valign="top"><?php echo $gender ?></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="left">Address:</div></td>
+    <td valign="top"><?php echo $address ?></td>
+  </tr>
+    <tr>
+    <td valign="top"><div align="left">Date of birth:</div></td>
+    <td valign="top"><?php echo $dateofbirth ?></td>
+  </tr>
+   <tr>
+    <td valign="top"><div align="left">Category:</div></td>
+    <td valign="top"><?php echo $cate ?></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="left">Department:</div></td>
+    <td valign="top"><?php echo $department ?></td>
+  </tr>
+   <tr>
+    <td valign="top"><div align="left">Year:</div></td>
+    <td valign="top"><?php echo $year ?></td>
+  </tr>
+  <tr>
+    <td valign="top"><div align="left">Contact No.: </div></td>
+    <td valign="top"><?php echo $contact ?></td>
+  </tr>
+
+</table>
+<p align="center"><a href="index.php"></a></p>
+</body>
+</html>
+
+insert.php
+<?php
+/* Attempt MySQL server connection. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+
+$link = mysqli_connect("localhost", "root", "", "train");
+include('connection.php');
+include('login.php');
+
+// Check connection
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+ 
+// Escape user inputs for security
+$from = mysqli_real_escape_string($link, $_REQUEST['source']);
+$duration = mysqli_real_escape_string($link, $_REQUEST['duration']);
+$class = mysqli_real_escape_string($link, $_REQUEST['class']);
+$lcno = mysqli_real_escape_string($link, $_REQUEST['concession_no']);
+$Date = mysqli_real_escape_string($link, $_REQUEST['Date']);
+$id=$_SESSION['id'];
+
+
+ 
+// attempt insert query execution
+$sql = "INSERT INTO concession (grno1,source,duration,class,concession_no,Date) VALUES ('$id', '$from', '$duration','$class','$lcno','$Date')";
+if(mysqli_query($link, $sql)){
+   echo "";
+    header("Location: pdf.php");
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+ 
+ function add()
+ {
+
+
+
+ }
+// close connection
+mysqli_close($link);
+?>
+connection.php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$databasename="train";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password,$databasename);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+
+new.html
+echo "";
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	.from{
+	display:block;
+	margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+	width:280px;
+	height:35px;
+	}
+	.box {
+    width:300px;
+    height:300px;
+    background-color:#d9d9d9;
+    position:fixed;
+    margin-left:-150px; /* half of width */
+    margin-top:-150px;  /* half of height */
+    top:50%;
+    left:50%;
+}
+.comp,.duration{
+height:35px;
+width:100px;
+margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+	
+.lcno{
+margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+
+}
+	
+	
+	</style>
+	
+</head>
+<body style="background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%)">
+<div>
+<center>
+
+	<form action="insert.php" method="post">
+		
+	
+
+
+	<table class="box">
+		
+		<tr>
+
+			<th>from</th>
+			<th>
+				<div class="input-field col s12">
+				<select name="source" class="from">
+    <option value="thane" selected>Thane</option>
+    <option value="anbernath">ambernath</option>
+    <option value="kalyan">kalyan</option>
+    <option value="domb">dombivili</option>
+     <option value="kalwa" selected>kalwa</option>
+    <option value="bhandup">bhandup</option>
+    <option value="mulund">mulund</option>
+    <option value="khargahar">khargahar</option>
+</select>
+</div>
+</th>
+</tr>
+		<tr>
+			<th>to</th>
+			<th>airoli</th>
+		</tr>	
+<tr>
+
+			<th>class</th>
+			<th>
+				
+				<select name="class" class="comp">
+    <option value="first" selected>I</option>
+    <option value="second">II</option> 
+</select>
+</th>
+</tr>
+<tr>
+	<th>duration</th>
+			<th>
+	<select name="duration" class="duration">
+    <option value="monthly" selected>Monthly</option>
+    <option value="quarterly">Quarterly</option> 
+</select>
+</th>
+</tr>
+
+<tr>
+	<th>last concession number</th>
+			<th><form action="/action_page.php">
+  <input type="text" name="concession_no" required>
+  
+
+</th>
+</tr>
+<tr>
+<th>Date</th>
+<th><form action="/action_page.php">
+<input type="Date" name="Date" required>
+  </form>
+    
+   
+</th>
+</tr>
+
+<tr>
+	<th></th>
+	<th><input type="submit" name="submit" value="Add Records" onclick="pdf.php"></th>
+			
+</th>
+</tr>
+
+</table>
+	
+</form>
+</center></div>
+</body>
+</html>
+
+home1.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title> home
+	</title>
+</head>
+<body>
+	<?php
+	include('connection.php');
+ 	include('login.php');
+
+	$id=$_SESSION['id'];
+$sql = "SELECT * FROM concession where grno1='$id'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo "<table ><tr><th>FROM</th><th>CLASS</th><th>DURATIO</th><th>LAST CONCESSION No</th><th>ISSUNING DATE</th></tr>";
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>" . $row["source"]. "</td><td>" . $row["class"]. "</td><td>" . $row["duration"]. "</td><td>". $row["concession_no"]."</td><td>". $row["Date"]."</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No Entry Yet";
+}
+
+$conn->close();
+?>
+</body>
+</html>
+
+sam.php
+<html>
+
+
+<frameset rows="19%,*">
+  <frame src="test.php">
+  <frame src="home1.php" name="12345" scrolling="yes">
+  <a href="index.php">logout</a>
+</font>
+
+</html>
+
+1111.php
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	.from{
+	display:block;
+	margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+	width:280px;
+	height:35px;
+	}
+	.box {
+    width:300px;
+    height:300px;
+    background-color:#d9d9d9;
+    position:fixed;
+    margin-left:-150px; /* half of width */
+    margin-top:-150px;  /* half of height */
+    top:50%;
+    left:50%;
+}
+.comp,.duration{
+height:35px;
+width:100px;
+margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+	
+.lcno{
+margin:30px,0;
+	padding:10px,50px,10px,10px;
+	background-color:grey;
+	color:#fff;
+	border:2px solid #fff;
+	border-radius:4px;
+
+}
+	
+	
+	</style>
+	
+</head>
+<body style="background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%)">
+<div>
+<center>
+	<form action="insert.php" action="pdf.php" method="post">
+	
+	
+	
+	<table class="box">
+		
+		<tr>
+
+			<th>from</th>
+			<th>
+				<div class="input-field col s12">
+				<select name="source" class="from">
+    <option value="thane" selected>Thane</option>
+    <option value="anbernath">ambernath</option>
+    <option value="kalyan">kalyan</option>
+    <option value="domb">dombivili</option>
+     <option value="kalwa" selected>kalwa</option>
+    <option value="bhandup">bhandup</option>
+    <option value="mulund">mulund</option>
+    <option value="khargahar">khargahar</option>
+</select>
+</div>
+</th>
+</tr>
+		<tr>
+			<th>to</th>
+			<th>airoli</th>
+		</tr>	
+<tr>
+
+			<th>class</th>
+			<th>
+				
+				<select name="class" class="comp">
+    <option value="first" selected>I</option>
+    <option value="second">II</option> 
+</select>
+</th>
+</tr>
+<tr>
+	<th>duration</th>
+			<th>
+	<select name="duration" class="duration">
+    <option value="monthly" selected>Monthly</option>
+    <option value="quarterly">Quarterly</option> 
+</select>
+</th>
+</tr>
+
+<tr>
+	<th>last concession number</th>
+			<th>
+	
+    <input type="text" class="lcno" name="concession_no"> 
+</th>
+</tr>
+
+<tr>
+	<th></th>
+	<th><a href="pdf.php"><input type="submit" name="submit" value="Add Records"></a></th>
+			
+</th>
+</tr>
+
+</table>
+	
+</form>
+</center></div>
+</body>
+</html>
+
+verification.php
+  <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$db = "login";
+// Create connection
+$conn = mysqli_connect($servername, $username, $password,$db);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+  $sql = "SELECT id,pass,ocp FROM details";
+  $result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0)
+   {
+   	// output data of each row
+     while($row = mysqli_fetch_assoc($result))
+     {
+       if ($_POST["idh"]==$row["id"])
+       {
+         if ($_POST["passh"]==$row["pass"])
+         {	
+     	  if ($row["ocp"] == 's')
+           { 
+           	 echo file_get_contents("StudentPage.html");
+            }   
+
+     	   else if ($row["ocp"] == 't')
+            {
+              header("Location: TeacherPage.html");
+          	  
+          	 }
+          }
+         }
+       }      
+     
+   }
+
+?>
+
+
+about.html
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>
+		About us
+	</title>
+</head>
+<body>
+	<h1>ABOUT US</h1>
+
+<p align="justify">
+Local train is the lifeline of people in Mumbai, and students are no exceptions. Education <img src="questionmark.jpg" height="500" width="300" align="right">
+without train travelling is a rarely seen case. Students (below the age of 25) are given a facility by
+Central and Western Railway, Mumbai, giving them concession in train pass if they use the local
+train services for going to their educational institutes.Colleges in Mumbai, provide students the
+railway train concession forms, issued by the Central and Western Railway, Mumbai, to avail the
+concession facility. Students have to wait for hours in a queue to get this form. The concerned
+college authority has a cumbersome task of filling the student details manually on the form.<br>
+
+After analyzing all the problems and requirements of the hour, the need for automation was strongly felt.E-
+Railway Concession Form System is an application that has automated the manual process which has
+many flaws.The perfection of data that this system provides to the institute and the government
+cannot be achieved with the manual proceedings. It aims at making the process efficient, quick and
+easy-going.<br>
+
+
+Progress in web technologies has led to rapid growth of online systems for day-to-day tasks
+such as shopping, paying bills, reservation etc. E-Railway Concession Form System is a similar
+innovation where a tiresome manual process is automated.To avail the concession facility students
+have to get the concession form that the college issues with their respective details filled on it. This
+includes their personal details as well as their preferences for the railway pass for which they need
+concession.<br> These preferences include:<br>
+<ol type="1"> 
+<li> Class: Mumbai locals have two types of compartments, first and second class.</li>
+<li> Duration: The time period for which they need the railway pass- monthly and quarterly.</li>
+<li> Via: If travelling to the institution needs a change-over of train, then via field decides the route
+of travelling.</li></ol><br><br>
+
+
+
+Filing a request online for concession makes it convenient for the students. They simply have
+to fill a web form to send their request of a railway concession form. Every request that a student
+puts up is received by the concerned college authority who prints it on the railway-issued concession
+form. The authentication and authorization is done for every student by the proposed web application
+which makes sure that the facility of the concession provided by the IndianRailwaysisn’t misused.
+Looking beyond ease and convenience, this web application will also stop the misuse of the
+government given facilities.<br> The various concessions given are:<br>
+<ol type="1">
+<li> Girls’ second class pass for monthly duration is free of cost.</li>
+<li>Students’ issuing first class pass for quarterly duration are given 35-45% concession.</li>
+<li> Students’ belonging to Scheduled Caste (SC)/Scheduled Tribe (ST) are given 55-65%
+concession.</li></ol><br>
+Considering, the importance of this facility, any exploitation of it has to be stopped first-hand.
+	
+</p>
+</body>
+</html>
+
+index.php
+<html>
+<head>
+<style>
+	.da
+	{
+		position:absolute;
+		top: 20px;
+		left: 240px;
+		z-index: 2;
+	}
+     div.tagu{
+    position: absolute;
+    top: 145px;
+    left: 252px;
+    font-size= 16px;
+    color: black;
+    font-family:Georgia;
+}
+     div.block{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+    .btn-group .button {
+    background-color: lightblue; 
+    border: 1px solid white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 220px;
+    display: block;   
+}
+    div.noti{
+    position: absolute;
+    top: 257px;
+    left: 5px;
+    width: 214px;
+    height: 476px;
+    border: 3px solid lightblue;
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+}
+div.achiev{
+    position: absolute;
+    top: 290px;
+    left: 5px;
+    width: 214px;
+    height: 445px;
+    color: black;
+    text-align: left;
+    font-size: 17px;
+}
+    div.but{
+    position: absolute;
+    top: 35px;
+    right: 5px;
+    width: 220px;
+    height: 150px;
+    color:black;
+    text-align: center;
+    font-size: 16px;
+}
+    div.adm{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 220px;
+    height: 30px;
+    color: Black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+}
+.button1 {
+    background-color: lightblue;
+    border: none;
+    color: white;
+    padding: 15px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}  
+ div.photo{
+    position: absolute;
+    top: 225px;
+    right: 0px;
+    width: 220px;
+    height: 30px;
+    color: Black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+} 
+div.gallery{
+    position: absolute;
+    top: 260px;
+    right: 0px;
+    width: 210px;
+    height: 320px;
+    border: 4px solid lightblue;
+}
+</style>
+<meta content="text/html; charset=ISO-8859-1"
+http-equiv="content-type">
+<title>datta meghe college of engineering</title>
+</head>
+<body>
+<img style="width: 100%; height: 94%;" alt=""
+src="11.jpg"
+hspace="225" vspace="0"> <br>
+<br>
+<img src="LOGO.png" width="82%" height="20%" class="da">
+<div class="tagu">The Official Website</div>
+<div class="block">
+<div class="btn-group">
+  <button class="button"><a href="http://www.dmce.ac.in/newdmcewebsite/aboutinstitution/aboutdmce.php">About Us</a></button>
+  <button class="button"><a href="http://www.dmce.ac.in/newdmcewebsite/others/contact.php">Contact Us</a></button>
+  <button class="button"><a href="http://www.dmce.ac.in/newdmcewebsite/others/campus2.php">Visit Our Cmpus</a></button>
+  <a href="log.php"><input type="buttun" class="button1" name="login" value="Login"></a>
+  <div class="photo">Photo Gallery</div>
+<div class="gallery">
+  <marquee behavior="alternate" direction="down" height="320px">
+  
+
+<img src="2.jpg" width=220px height=220px />
+<img src="3.jpg" width=220px height=220px/>
+<img src="4.jpg" width=220px height=220px/>
+<img src="1.jpg" width=220px height=220px/>
+
+</marquee>
+</div>
+</div>
+</div>
+</body>       ` 
+</html>
+
+log.php
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Material design sign up form</title>
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div class="lower_part back">
+  <div id="upper_part">
+<div class="upper_left">
+<a class="logo" href="log.php">Online Railway Concession System</a>
+</div>
+
+  <div id="login-box">
+  <div class="left">
+    <h1>Sign in</h1>
+    <form action="login.php" method="post">
+    <input type="text" name="grno" placeholder="GR No" />
+    <input type="password" name="password" placeholder="Password" />
+    <input type="submit" name="signin_submit" value="Sign In" />
+  </form>
+  </div>
+  <div class="right">
+  
+    </div>
+	</div> 
+</body>
+</html>
+
+
+login.php
+<?php
+   include("connection.php");
+   session_start();
+
+   if(isset($_POST['grno']) && isset($_POST['password'])) {
+      // username and password sent from form 
+      
+      		$grno = $_POST['grno'];
+			$password = $_POST['password'];
+			
+			$sql = "SELECT * FROM profile WHERE grno='$grno' AND password='$password'";
+			$result = mysqli_query($conn,$sql);
+			
+			if(!$row = mysqli_fetch_row($result))
+			{
+				
+				echo "<center ><p style='font-size:30px;margin-top:50px;'>Either the username or the password is incorrect.</p><center>";
+				
+				
+			}
+			else{
+				
+				$_SESSION['id'] = $grno;
+
+				header('Location:sam.php');
+				
+			}
+
+      	
+   }
+   else{
+
+   }
+
+test.php
+
+<html>
+<head>
+<link href="css/elements.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/Stylesheet.css">
+
+
+<script src="js/validate.js"></script>
+  <meta charset="UTF-8">
+  <title>online reservation</title>
+
+</head>
+<body style="overflow:hidden;" >
+
+<div class="lower_part">
+
+<div id="upper_part">
+<div class="upper_left">
+	
+<a class="logo" href="index.html">Online Railway Concession <span class="dotcom">System</span></a>
+</div>
+
+</div>
+</div>
+
+<div class="main">
+	<nav id="navigation">
+                <ul id="nav">
+                    <li><a href="home1.php" target="12345"><button >Home</button></a></li>
+                    <li><a href="new.html" target="12345"><button href="#">New</button></a></li>
+                    <li><a href="profile.php" target="12345"><button href="#">Profile</button></a></li>
+                    <li><a href="about.html" target="12345"><button href="#">About</button></a></li>
+					<li><a href="index.php" target="_top"><button href="#">log out</button></a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+
+try.html
+<html>
+<head>
+<style>
+	.da
+	{
+		position:absolute;
+		top: 20px;
+		left: 240px;
+		z-index: 2;
+	}
+     div.tagu{
+    position: absolute;
+    top: 145px;
+    left: 252px;
+    font-size= 16px;
+    color: black;
+    font-family:Georgia;
+}
+     div.block{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+    .btn-group .button {
+    background-color: lightblue; 
+    border: 1px solid white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    width: 220px;
+    display: block;   
+}
+    div.noti{
+    position: absolute;
+    top: 257px;
+    left: 5px;
+    width: 214px;
+    height: 476px;
+    border: 3px solid lightblue;
+    color: black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+}
+div.achiev{
+    position: absolute;
+    top: 290px;
+    left: 5px;
+    width: 214px;
+    height: 445px;
+    color: black;
+    text-align: left;
+    font-size: 17px;
+}
+    div.but{
+    position: absolute;
+    top: 35px;
+    right: 5px;
+    width: 220px;
+    height: 150px;
+    color:black;
+    text-align: center;
+    font-size: 16px;
+}
+    div.adm{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 220px;
+    height: 30px;
+    color: Black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+}
+.button1 {
+    background-color: lightblue;
+    border: none;
+    color: white;
+    padding: 15px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}  
+ div.photo{
+    position: absolute;
+    top: 225px;
+    right: 0px;
+    width: 220px;
+    height: 30px;
+    color: Black;
+    text-align: center;
+    font-size: 25px;
+    font-family:Georgia;
+} 
+div.gallery{
+    position: absolute;
+    top: 260px;
+    right: 0px;
+    width: 210px;
+    height: 320px;
+    border: 4px solid lightblue;
+}
+</style>
+<meta content="text/html; charset=ISO-8859-1"
+http-equiv="content-type">
+<title>datta meghe college of engineering</title>
+</head>
+<body>
+<img style="width: 100%; height: 94%;" alt=""
+src="11.jpg"
+hspace="225" vspace="0"> <br>
+<br>
+<img src="LOGO.png" width="82%" height="20%" class="da">
+<div class="tagu">The Official Website</div>
+<div class="block">
+<div class="btn-group">
+  <button class="button"><a href="about us_page.html">About Us</a></button>
+  <button class="button"><a href="contactus_page.html">Contact Us</a></button>
+  <button class="button"><a href="visitus_page.html">Visit Us</a></button>
+  <a href="log.php"><input type="buttun" class="button1" name="login" value="Login"></a>
+  <div class="photo">Photo Gallery</div>
+<div class="gallery">
+  <marquee behavior="alternate" direction="down" height="320px">
+  
+
+<img src="2.jpg" width=220px height=220px />
+<img src="3.jpg" width=220px height=220px/>
+<img src="4.jpg" width=220px height=220px/>
+<img src="1.jpg" width=220px height=220px/>
+
+</marquee>
+</div>
+</div>
+</div>
+</body>       ` 
+</html>
+
+
+wrap.php
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+function WordWrap(&$text, $maxwidth)
+{
+    $text = trim($text);
+    if ($text==='')
+        return 0;
+    $space = $this->GetStringWidth(' ');
+    $lines = explode("\n", $text);
+    $text = '';
+    $count = 0;
+
+    foreach ($lines as $line)
+    {
+        $words = preg_split('/ +/', $line);
+        $width = 0;
+
+        foreach ($words as $word)
+        {
+            $wordwidth = $this->GetStringWidth($word);
+            if ($wordwidth > $maxwidth)
+            {
+                // Word is too long, we cut it
+                for($i=0; $i<strlen($word); $i++)
+                {
+                    $wordwidth = $this->GetStringWidth(substr($word, $i, 1));
+                    if($width + $wordwidth <= $maxwidth)
+                    {
+                        $width += $wordwidth;
+                        $text .= substr($word, $i, 1);
+                    }
+                    else
+                    {
+                        $width = $wordwidth;
+                        $text = rtrim($text)."\n".substr($word, $i, 1);
+                        $count++;
+                    }
+                }
+            }
+            elseif($width + $wordwidth <= $maxwidth)
+            {
+                $width += $wordwidth + $space;
+                $text .= $word.' ';
+            }
+            else
+            {
+                $width = $wordwidth + $space;
+                $text = rtrim($text)."\n".$word.' ';
+                $count++;
+            }
+        }
+        $text = rtrim($text)."\n";
+        $count++;
+    }
+    $text = rtrim($text);
+    return $count;
+}
+}
+?>
+
+validate.js
+function check_empty() {
+if (document.getElementById('name').value == "" || document.getElementById('email').value == "" || document.getElementById('msg').value == "") {
+alert("Fill All Fields !");
+} else {
+document.getElementById('form').submit();
+alert("Form Submitted Successfully...");
+}
+}
+//Function To Display Popup
+function div_show() {
+document.getElementById('abc').style.display = "block";
+}
+//Function to Hide Popup
+function div_hide(){
+document.getElementById('abc').style.display = "none";
+}
+
+
+
+
+
+
+style.css
+body {
+  margin: 0;
+  padding: 0;
+  background: #DDD;
+  font-size: 16px;
+  color: #222;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+#login-box {
+  position: relative;
+  margin: 5% auto;
+  width: 600px;
+  height: 400px;
+  background: #FFF;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 300px;
+  height: 400px;
+}
+
+h1 {
+  margin: 0 0 20px 0;
+  font-weight: 300;
+  font-size: 28px;
+}
+
+input[type="text"],
+input[type="password"] {
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  padding: 4px;
+  width: 220px;
+  height: 32px;
+  border: none;
+  border-bottom: 1px solid #AAA;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-bottom: 2px solid #16a085;
+  color: #16a085;
+  transition: 0.2s ease;
+}
+
+input[type="submit"] {
+  margin-top: 28px;
+  width: 120px;
+  height: 32px;
+  background: #16a085;
+  border: none;
+  border-radius: 2px;
+  color: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: 0.1s ease;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  opacity: 0.8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: 0.1s ease;
+}
+
+input[type="submit"]:active {
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: 0.1s ease;
+}
+.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 300px;
+  height: 400px;
+  background:	url('http://static.dnaindia.com/sites/default/files/2016/02/12/425130-western.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 2px 2px 0;
+}
+.upper_right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 50%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 2px 2px 0;
+}
+.upper_left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 50%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 2px 2px 0;
+
+}
+
+.right .loginwith {
+  display: block;
+  margin-bottom: 40px;
+  font-size: 28px;
+  color: #FFF;
+  text-align: center;
+}
+.logo {
+    font-family: fontawesome;
+    text-decoration: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 30px;
+    letter-spacing: 3px;
+    color: #000000;
+    display: block;
+    position: absolute;
+    top: 17px;
+}
+.logo:hover{
+	color:#bc4788
+	
+}
+.dotcom
+{
+	color: #bc4788;
+}
+#upper_part
+{
+	background-color:white;
+	position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  width: 100%;
+  height:9%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 2px 2px 0;
+}
+.lower_part{
+	width: 100%;
+  height:100%;
+  position: absolute;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0 2px 2px 0;
+background:white;
+}
+.main
+{
+	width: 100%;
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    
+}
+.back{
+  background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
+}
+p
+{
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  font-weight: 300;
+  font-style: "arial";
+  font-size: 13px;
+  text-align: 
+}
+.profile
+
+stylesheet.css
+body
+{
+    font-family: lucida grande ,tahoma,verdana,arial,sans-serif;
+    background-color: #e9e9e9;
+}
+
+body p
+{
+    font-size: 0.8em;
+    line-height: 1.28;
+}
+
+#wrapper
+{
+    width: 1080px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    border: 5px solid #dedede;
+}
+#banners
+{
+    width: 1080px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    border: 5px solid #dedede;
+}
+
+#content_area
+{
+    float: left;
+    width: 750px;
+    margin: 20px 0 20px 0;
+    padding: 10px;
+}
+
+#sidebar
+{
+    float: right;
+    width: 250px;
+    height: 400px;
+    margin: 20px 10px;
+    padding: 10px;
+    border: 2px solid #E3E3E3;
+}
+
+footer
+{
+    clear: both;
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    border: 3px solid #E3E3E3;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0.1em 0.1em #333;
+    background-image: url(../Images/bar_background.png);
+}
+
+#navigation
+{
+    height: 60px;
+    width: 100%;
+     padding-right: 0px;
+     padding-left: 0px;   
+    
+    text-shadow: 0.1em 0.1em #333;
+    background-color: black;
+}
+
+#nav
+{
+    list-style: none;
+}
+
+#nav ul
+{
+    margin: 0;
+    padding: 0;
+    width: auto;
+    display: none;
+}
+
+#nav li,button
+{
+    font-size: 24px;
+    text-align: center;
+    float: left;
+    position: relative;
+    width: 150px;
+    height: 60px;
+    color: white;
+    border: 0px;
+    padding-top: -10px;
+    background-color: black;
+}
+
+#nav a:link, nav a:active, nav a:visited
+{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+#nav button:hover
+{
+    color: lightblue;
+    background-color: grey;
+    width: 150px;
+    height: 60px;
+    padding-top: 10px;
+    
+}
+
+.imgLeft
+{
+    float: left;
+    width: 240px;
+    height: 150px;
+    margin: 0px 10px 10px 0;
+    padding: 10px;
+}
+
+.imgRight
+{
+    float: right;
+    width: 200px;
+    height: 250px;
+    margin: 0px 0 10px 10px;
+    padding: 10px;
+}
+
+
+SCREEN SHOTS
+
+ 
+
+ 
+ 
+CONCLUSION
+   
+       The ‘ONLINE CONCESSION FORM’ for college student is must for every college to remain in the race of this growing technology. This product will not only reduce the hectic for students but also for office member of college staff. As office member would not take headache of issuing concession form to each and every students.  As all details of students need for concession form will be remain safe and authentic. Student’s life would also get easier as they won’t need to go to office looking for concession form and they need not to wait in a queue for long time and miss their lecture. And this will not waste time of student as well as of office students.
+
+
+FUTURE WORK
+
+	For now the ‘ONLINE CONCESSION FORM’ for college student is only capable of  issuing the concession form. But in future it can also be help full for filling 
+
+
+
+
+
+
+
+
+
+
+
+Contents:-
+
+? Project name/project members
+? ABSTRACT(SHORT INTRODUCTION)
+? SOFTWARE REQUIREMENT(FRONT END ,BACK END)
+?  SNAPSHOT OF EACH WEB PAGE . (Min. 5 pages )
+? SOURCE CODE OF EACH WEB PAGE.(mention file name.)
+? DATABASE DESIGN(SCREEN SHOTS OF PHPMYADMIN)
+? CONCLUSION AND FUTURE WORK.
+
+? Note :PROJECT NAME font size (28) /STUDENT NAME  font size (18)(Times new roman)
+? All Titles are in Times new roman Font size (18)
+? All Subtitles in Times new roman Font size (14)
+? All other information in Times new roman Font size (12)
+
+1
+
+
