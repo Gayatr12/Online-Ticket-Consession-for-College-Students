@@ -1,5 +1,4 @@
 # Online-Ticket-Consession-for-College-Students
-<<<<<<< HEAD
 
 The purpose of this document is to give a detailed description of the requirements for the “Online
 Ticket Concession” for college students of DMCE. It will illustrate the purpose and complete
@@ -19,5 +18,3 @@ In that form the students only have to write their previous concession number if
 information will be automatically added. This will also not create any duplication of form. And at the
 end of the form the digital sign will be added. And after which they can take printout of the form and
 can submit to railway ticket counter.
-=======
->>>>>>> 997102e09a018728c83147803fe89f5251fe8713
